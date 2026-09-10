@@ -104,7 +104,7 @@ textarea:focus-visible {
 }
 
 /* Dedicated legibility scrim behind the transparent header, independent of
-   .hero-duotone (which may be lighter near the very top depending on the photo). */
+   .hero-gradient (which fades to fully transparent on the right side of the hero). */
 #site-header::before {
   content: '';
   position: absolute;
@@ -182,6 +182,47 @@ textarea:focus-visible {
   font-weight: 500;
   color: #101D42;
   border-bottom: 1px solid #E8E9EA;
+}
+
+/* Mobile menu panel: fades and slides in instead of snapping open/closed */
+#mobile-menu {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#mobile-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hamburger / close icon crossfade, avoids an instant swap */
+#menu-toggle {
+  position: relative;
+}
+
+.menu-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: 1;
+  transition: opacity 200ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#icon-close {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#menu-toggle.is-open #icon-menu {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#menu-toggle.is-open #icon-close {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0deg);
 }
 
 /* ========== Buttons ========== */
@@ -312,18 +353,40 @@ textarea:focus-visible {
 
 /* ========== Hero ========== */
 
-.hero-duotone {
-  background:
-    linear-gradient(180deg, rgba(10,20,47,0.55) 0%, rgba(10,20,47,0.72) 55%, rgba(10,20,47,0.92) 100%),
-    linear-gradient(120deg, rgba(33,58,122,0.65), rgba(10,20,47,0.55));
-  mix-blend-mode: multiply;
-  background-color: #0A142F;
+.hero-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 75% center;
 }
 
-section#inicio .hero-duotone {
-  background:
-    linear-gradient(180deg, rgba(10,20,47,0.45) 0%, rgba(10,20,47,0.68) 55%, rgba(10,20,47,0.94) 100%),
-    linear-gradient(120deg, rgba(33,58,122,0.55), rgba(10,20,47,0.35));
+.hero-media-fallback {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  #hero-video {
+    display: none;
+  }
+
+  .hero-media-fallback {
+    display: block;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(10,20,47,0.95) 0%,
+    rgba(10,20,47,0.88) 20%,
+    rgba(16,29,66,0.7) 36%,
+    rgba(22,39,87,0.46) 52%,
+    rgba(33,58,122,0.22) 68%,
+    rgba(33,58,122,0.06) 84%,
+    rgba(33,58,122,0) 100%
+  );
 }
 
 [data-hero] {
@@ -396,23 +459,6 @@ section#inicio .hero-duotone {
   margin-top: 0.5rem;
   font-size: 0.95rem;
   color: rgba(255,255,255,0.7);
-}
-
-/* ========== Nosotros cards ========== */
-
-.card-mission {
-  background: linear-gradient(155deg, #213A7A 0%, #162757 100%);
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 1px 2px rgba(16,29,66,0.1), 0 20px 40px -18px rgba(16,29,66,0.55);
-}
-
-.card-vision {
-  background-color: #EEF1F8;
-  border: 1px solid #DCE2F0;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 1px 2px rgba(16,29,66,0.04), 0 16px 32px -18px rgba(33,58,122,0.18);
 }
 
 /* ========== Services ========== */
@@ -581,6 +627,31 @@ section#inicio .hero-duotone {
   color: #101D42;
 }
 
+/* ========== Proyectos: grid tipo mosaico (bento) ========== */
+@media (min-width: 640px) {
+  #project-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 18rem;
+  }
+
+  #project-grid .project-card {
+    height: 100%;
+  }
+
+  #project-grid .project-media {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  #project-grid > [data-project="garvi"] {
+    grid-row: span 2;
+  }
+
+  #project-grid > [data-project="cabana"] {
+    grid-column: span 2;
+  }
+}
+
 /* ========== Contact ========== */
 
 .contact-link {
@@ -673,6 +744,12 @@ section#inicio .hero-duotone {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox.is-open {
+  opacity: 1;
 }
 
 .lightbox.hidden {
@@ -690,6 +767,12 @@ section#inicio .hero-duotone {
   z-index: 1;
   width: min(92vw, 1100px);
   max-height: 88vh;
+  transform: scale(0.97);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox.is-open .lightbox-content {
+  transform: scale(1);
 }
 
 .lightbox-figure {

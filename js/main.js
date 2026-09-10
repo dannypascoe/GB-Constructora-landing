@@ -5,8 +5,6 @@
   var header = document.getElementById('site-header');
   var menuToggle = document.getElementById('menu-toggle');
   var mobileMenu = document.getElementById('mobile-menu');
-  var iconMenu = document.getElementById('icon-menu');
-  var iconClose = document.getElementById('icon-close');
 
   var HEADER_SOLID_THRESHOLD = 48;
 
@@ -18,21 +16,31 @@
   window.addEventListener('scroll', updateHeaderState, { passive: true });
 
   /* ---------- Mobile menu ---------- */
+  var MOBILE_MENU_TRANSITION_MS = 220;
+  var mobileMenuCloseTimer = null;
+
   function closeMobileMenu() {
-    mobileMenu.classList.add('hidden');
+    clearTimeout(mobileMenuCloseTimer);
+    mobileMenu.classList.remove('is-open');
+    menuToggle.classList.remove('is-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Abrir menú de navegación');
-    iconMenu.classList.remove('hidden');
-    iconClose.classList.add('hidden');
+    mobileMenuCloseTimer = window.setTimeout(function () {
+      mobileMenu.classList.add('hidden');
+    }, MOBILE_MENU_TRANSITION_MS);
     updateHeaderState();
   }
 
   function openMobileMenu() {
+    clearTimeout(mobileMenuCloseTimer);
     mobileMenu.classList.remove('hidden');
+    // Force a reflow so the browser picks up the "closed" starting state
+    // before the "is-open" class is added, letting the transition run.
+    void mobileMenu.offsetHeight;
+    mobileMenu.classList.add('is-open');
+    menuToggle.classList.add('is-open');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Cerrar menú de navegación');
-    iconMenu.classList.add('hidden');
-    iconClose.classList.remove('hidden');
     updateHeaderState();
   }
 
@@ -212,19 +220,31 @@
     lightboxImage.style.animation = '';
   }
 
+  var LIGHTBOX_TRANSITION_MS = 220;
+  var lightboxCloseTimer = null;
+
   function openGallery(key, startIndex) {
     var gallery = galleries[key];
     if (!gallery) return;
+    clearTimeout(lightboxCloseTimer);
     currentGallery = gallery;
     lastFocusedElement = document.activeElement;
     showPhoto(startIndex || 0);
     lightbox.classList.remove('hidden');
+    // Force a reflow so the "closed" starting state is picked up before
+    // "is-open" is added, letting the fade/scale transition run.
+    void lightbox.offsetHeight;
+    lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     lightbox.querySelector('.lightbox-close').focus();
   }
 
   function closeGallery() {
-    lightbox.classList.add('hidden');
+    clearTimeout(lightboxCloseTimer);
+    lightbox.classList.remove('is-open');
+    lightboxCloseTimer = window.setTimeout(function () {
+      lightbox.classList.add('hidden');
+    }, LIGHTBOX_TRANSITION_MS);
     document.body.style.overflow = '';
     currentGallery = null;
     if (lastFocusedElement) {
