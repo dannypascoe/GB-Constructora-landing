@@ -65,11 +65,13 @@
   <a href="#main" class="skip-link">Saltar al contenido principal</a>
 
   <!-- ============ HEADER / NAV ============ -->
-  <header id="site-header" class="fixed top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-sm border-b border-steel-100 transition-shadow">
+  <header id="site-header" class="fixed top-0 inset-x-0 z-40">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 md:h-20">
         <a href="#inicio" class="flex items-center gap-2 shrink-0 focus-ring rounded-sm" aria-label="GB Constructora, inicio">
-          <img src="brand_assets/logos/GB_logo_2.png" alt="GB Constructora" class="h-12 md:h-14 w-auto">
+          <span id="header-logo" class="inline-flex items-center rounded-md bg-white/95 px-2.5 py-1.5 shadow-sm transition-shadow">
+            <img src="brand_assets/logos/GB_logo_1.png" alt="GB Constructora" class="h-9 md:h-10 w-auto">
+          </span>
         </a>
 
         <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
@@ -84,7 +86,7 @@
           <a href="#contacto" class="btn-primary">Solicitar cotización</a>
         </div>
 
-        <button id="menu-toggle" type="button" class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-md text-navy-700 focus-ring" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+        <button id="menu-toggle" type="button" class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-md focus-ring" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
           <svg id="icon-menu" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <path d="M4 7h16M4 12h16M4 17h16"/>
           </svg>
@@ -113,24 +115,14 @@
     <!-- ============ HERO / INICIO ============ -->
     <section id="inicio" class="relative overflow-hidden pt-16 md:pt-20">
       <div class="absolute inset-0 -z-10">
-        <video
-          id="hero-video"
-          class="w-full h-full object-cover"
-          autoplay
-          muted
-          playsinline
-          aria-hidden="true"
-          poster="brand_assets/photos/GARVI%20SANTA%20ANITA_1.jpg"
-        >
-          <source src="brand_assets/videos/hero-sequence.mp4" type="video/mp4">
-        </video>
+        <img src="brand_assets/photos/GARVI%20SANTA%20ANITA_2.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover">
         <div id="hero-overlay" class="absolute inset-0 hero-duotone"></div>
       </div>
 
       <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-36 lg:py-44">
         <div id="hero-text" class="max-w-2xl">
           <h1 class="hero-title text-5xl sm:text-6xl lg:text-7xl text-white" data-hero>
-            Ingeniería y construcción, de cimentación a llave en mano
+            Construcción que transforma espacios y ciudades
           </h1>
           <p class="mt-6 text-lg md:text-xl text-navy-100 leading-relaxed max-w-xl" data-hero>
             Obra civil, remodelaciones y proyectos arquitectónicos ejecutados con tecnología, confiabilidad y calidad en cada etapa de la obra.
@@ -152,7 +144,7 @@
     <section id="nosotros" class="py-20 md:py-28">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
-          <div class="lg:col-span-5">
+          <div class="lg:col-span-5" data-reveal>
             <h2 class="section-title">Nosotros</h2>
             <p class="mt-5 text-steel-700 leading-relaxed">
               GB Constructora es una empresa dedicada a la construcción de proyectos de ingeniería y arquitectura: obra civil, remodelación, proyectos arquitectónicos y de ingeniería, levantamientos topográficos y elaboración de catálogos de obra.
@@ -177,14 +169,14 @@
             </dl>
           </div>
 
-          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6">
-            <div class="card-mission">
+          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-6" id="mission-vision-grid">
+            <div class="card-mission" data-reveal>
               <h3 class="font-display text-2xl font-semibold tracking-tight text-white">Misión</h3>
               <p class="mt-4 text-navy-100 leading-relaxed">
                 Somos una empresa dedicada a la construcción de proyectos de ingeniería y arquitectura; cuya misión es garantizar la calidad en el menor tiempo posible, logrando resultados que superan las expectativas de satisfacción y rentabilidad de cada usuario y clientes.
               </p>
             </div>
-            <div class="card-vision">
+            <div class="card-vision" data-reveal>
               <h3 class="font-display text-2xl font-semibold tracking-tight text-navy-900">Visión</h3>
               <p class="mt-4 text-steel-700 leading-relaxed">
                 Consolidarnos como una constructora de desarrollo y ejecución integral de proyectos de ingeniería y arquitectura a nivel local y nacional con tecnología, confiabilidad y calidad; logrando la satisfacción de sus clientes y empleados.
@@ -195,51 +187,87 @@
       </div>
     </section>
 
+    <!-- ============ ESTADÍSTICAS ============ -->
+    <section id="estadisticas" class="py-16 md:py-20 bg-navy-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <dl class="grid grid-cols-1 sm:grid-cols-3 divide-y divide-white/10 sm:divide-y-0 sm:divide-x text-center" data-reveal>
+          <div class="stat-block">
+            <dt class="stat-count" data-count-target="20000" data-count-prefix="+">0</dt>
+            <dd class="stat-label">m² construidos</dd>
+          </div>
+          <div class="stat-block">
+            <dt class="stat-count" data-count-target="5">0</dt>
+            <dd class="stat-label">años de experiencia</dd>
+          </div>
+          <div class="stat-block">
+            <dt class="stat-count" data-count-target="50" data-count-prefix="+">0</dt>
+            <dd class="stat-label">trabajos realizados</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
     <!-- ============ SERVICIOS ============ -->
     <section id="servicios" class="py-20 md:py-28 bg-navy-50">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="max-w-2xl">
+        <div class="max-w-2xl" data-reveal>
           <h2 class="section-title">Servicios</h2>
           <p class="mt-5 text-steel-700 leading-relaxed">
             Un solo equipo para cada etapa del proyecto: del levantamiento del terreno a la obra terminada.
           </p>
         </div>
 
-        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid">
 
-          <article class="service-card">
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
-            </span>
-            <h3 class="service-title">Obra civil</h3>
-            <p class="service-desc">Cimentación, estructura y todo el proceso constructivo de su proyecto, ejecutado con control técnico en cada etapa.</p>
+          <article class="service-card service-card-photo" data-reveal>
+            <img src="brand_assets/photos/cabana_MJ_2.jpg" alt="Trabajadores instalando armado de acero para cimentación en una obra entre pinos." class="service-photo">
+            <div class="service-photo-overlay"></div>
+            <div class="relative">
+              <span class="service-icon service-icon-on-photo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+              </span>
+              <h3 class="service-title text-white">Obra civil</h3>
+              <p class="service-desc text-navy-100">Cimentación, estructura y todo el proceso constructivo de su proyecto, ejecutado con control técnico en cada etapa.</p>
+            </div>
           </article>
 
-          <article class="service-card">
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6L9 21H3v-6l11.5-11.5z"/><path d="M13 5l6 6"/></svg>
-            </span>
-            <h3 class="service-title">Remodelación</h3>
-            <p class="service-desc">Renovación de espacios residenciales e industriales, desde acabados hasta intervenciones estructurales.</p>
+          <article class="service-card service-card-photo" data-reveal>
+            <img src="brand_assets/photos/Terraza%20Colinas_2.jpg" alt="Personal de GB Constructora levantando un muro de block en obra." class="service-photo">
+            <div class="service-photo-overlay"></div>
+            <div class="relative">
+              <span class="service-icon service-icon-on-photo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5l6 6L9 21H3v-6l11.5-11.5z"/><path d="M13 5l6 6"/></svg>
+              </span>
+              <h3 class="service-title text-white">Remodelación</h3>
+              <p class="service-desc text-navy-100">Renovación de espacios residenciales e industriales, desde acabados hasta intervenciones estructurales.</p>
+            </div>
           </article>
 
-          <article class="service-card">
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 3h7v7"/><path d="M3 21h18"/></svg>
-            </span>
-            <h3 class="service-title">Proyectos arquitectónicos y de ingeniería</h3>
-            <p class="service-desc">Diseño y desarrollo de proyectos ejecutivos, con la ingeniería estructural, eléctrica e hidrosanitaria que cada obra requiere.</p>
+          <article class="service-card service-card-photo" data-reveal>
+            <img src="brand_assets/photos/GARVI%20SANTA%20ANITA_3.jpg" alt="Detalle de fachada terminada con ventanería de aluminio en un desarrollo residencial." class="service-photo">
+            <div class="service-photo-overlay"></div>
+            <div class="relative">
+              <span class="service-icon service-icon-on-photo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 3h7v7"/><path d="M3 21h18"/></svg>
+              </span>
+              <h3 class="service-title text-white">Proyectos arquitectónicos y de ingeniería</h3>
+              <p class="service-desc text-navy-100">Diseño y desarrollo de proyectos ejecutivos, con la ingeniería estructural, eléctrica e hidrosanitaria que cada obra requiere.</p>
+            </div>
           </article>
 
-          <article class="service-card">
-            <span class="service-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
-            </span>
-            <h3 class="service-title">Elaboración de catálogos de obra</h3>
-            <p class="service-desc">Catálogos de conceptos y cuantificación de obra: la base técnica para presupuestar y dar seguimiento a cada proyecto.</p>
+          <article class="service-card service-card-photo" data-reveal>
+            <img src="brand_assets/photos/Casa%20F10_4.jpg" alt="Escalera de concreto en construcción, vista estructural de la obra." class="service-photo">
+            <div class="service-photo-overlay"></div>
+            <div class="relative">
+              <span class="service-icon service-icon-on-photo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h4"/></svg>
+              </span>
+              <h3 class="service-title text-white">Elaboración de catálogos de obra</h3>
+              <p class="service-desc text-navy-100">Catálogos de conceptos y cuantificación de obra: la base técnica para presupuestar y dar seguimiento a cada proyecto.</p>
+            </div>
           </article>
 
-          <article class="service-card service-card-photo sm:col-span-2">
+          <article class="service-card service-card-photo" data-reveal>
             <img src="brand_assets/photos/igexport-Cx58_81A2p-.jpg" alt="Equipo de nivelación láser instalado dentro de una nave industrial en construcción, usado para levantamiento topográfico" class="service-photo">
             <div class="service-photo-overlay"></div>
             <div class="relative">
@@ -258,7 +286,7 @@
     <!-- ============ PROYECTOS DESTACADOS ============ -->
     <section id="proyectos" class="py-20 md:py-28">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="max-w-2xl">
+        <div class="max-w-2xl" data-reveal>
           <h2 class="section-title">Proyectos destacados</h2>
           <p class="mt-5 text-steel-700 leading-relaxed">
             Una muestra del trabajo entregado en vivienda en serie y proyectos multidisciplinarios.
@@ -267,52 +295,56 @@
 
         <div class="mt-14 grid sm:grid-cols-2 gap-8" id="project-grid">
 
-          <article class="project-card" data-project="garvi">
+          <article class="project-card" data-project="garvi" data-reveal>
             <button type="button" class="project-media" data-open-gallery="garvi" aria-label="Ver galería de fotos de GARVI SANTA ANITA">
               <img src="brand_assets/photos/GARVI%20SANTA%20ANITA_1.jpg" alt="Fachada de vivienda en construcción del desarrollo GARVI SANTA ANITA, vista en ángulo contra el cielo" class="w-full h-full object-cover photo-duotone">
+              <div class="project-media-overlay"></div>
               <span class="project-media-badge">Ver galería · 3 fotos</span>
+              <div class="project-media-caption">
+                <span class="project-tag">Vivienda en serie</span>
+                <h3 class="project-title text-white">GARVI SANTA ANITA</h3>
+              </div>
             </button>
-            <div class="project-body">
-              <span class="project-tag">Vivienda en serie</span>
-              <h3 class="project-title">GARVI SANTA ANITA</h3>
-              <p class="project-desc">Viviendas en serie — Grupo Garvi (ZOI Santa Anita). Construcción desde cimentación hasta llave en mano de más de 50 casas en distintos fraccionamientos residenciales (ZOI Santa Anita, ZOI San Agustín, Zoi Real y Altika).</p>
-            </div>
+            <p class="sr-only">Viviendas en serie — Grupo Garvi (ZOI Santa Anita). Construcción desde cimentación hasta llave en mano de más de 50 casas en distintos fraccionamientos residenciales (ZOI Santa Anita, ZOI San Agustín, Zoi Real y Altika).</p>
           </article>
 
-          <article class="project-card" data-project="f10">
+          <article class="project-card" data-project="f10" data-reveal>
             <button type="button" class="project-media" data-open-gallery="f10" aria-label="Ver galería de fotos de Casa F10">
               <img src="brand_assets/photos/Casa%20F10_1.jpg" alt="Vestíbulo interior de Casa F10 con tragaluces, muro de piedra y puerta principal de madera" class="w-full h-full object-cover photo-duotone">
+              <div class="project-media-overlay"></div>
               <span class="project-media-badge">Ver galería · 4 fotos</span>
+              <div class="project-media-caption">
+                <span class="project-tag">Proyecto multidisciplinario</span>
+                <h3 class="project-title text-white">Casa F10</h3>
+              </div>
             </button>
-            <div class="project-body">
-              <span class="project-tag">Proyecto multidisciplinario</span>
-              <h3 class="project-title">Casa F10</h3>
-              <p class="project-desc">Proyecto de instalaciones, diseño de muebles fijos, diseño de carpinterías y construcción desde cimentación hasta llave en mano. Incluye además desarrollo de domótica: automatización completa de la casa residencial.</p>
-            </div>
+            <p class="sr-only">Proyecto de instalaciones, diseño de muebles fijos, diseño de carpinterías y construcción desde cimentación hasta llave en mano. Incluye además desarrollo de domótica: automatización completa de la casa residencial.</p>
           </article>
 
-          <article class="project-card" data-project="terraza">
+          <article class="project-card" data-project="terraza" data-reveal>
             <button type="button" class="project-media" data-open-gallery="terraza" aria-label="Ver galería de fotos de Terraza Colinas">
               <img src="brand_assets/photos/Terraza%20Colinas_1.jpg" alt="Cocina exterior de Terraza Colinas con barra de concreto y paneles de madera" class="w-full h-full object-cover photo-duotone">
+              <div class="project-media-overlay"></div>
               <span class="project-media-badge">Ver galería · 2 fotos</span>
+              <div class="project-media-caption">
+                <span class="project-tag">Proyecto multidisciplinario</span>
+                <h3 class="project-title text-white">Terraza Colinas</h3>
+              </div>
             </button>
-            <div class="project-body">
-              <span class="project-tag">Proyecto multidisciplinario</span>
-              <h3 class="project-title">Terraza Colinas</h3>
-              <p class="project-desc">Proyecto arquitectónico y de ingenierías, con ejecución de trabajos desde cimentación hasta acabados.</p>
-            </div>
+            <p class="sr-only">Proyecto arquitectónico y de ingenierías, con ejecución de trabajos desde cimentación hasta acabados.</p>
           </article>
 
-          <article class="project-card" data-project="cabana">
+          <article class="project-card" data-project="cabana" data-reveal>
             <button type="button" class="project-media" data-open-gallery="cabana" aria-label="Ver galería de fotos de Cabaña MJ">
               <img src="brand_assets/photos/cabana_MJ_1.jpg" alt="Cabaña MJ en Tapalpa, Jalisco, con fachada de piedra y estuco entre los árboles del bosque" class="w-full h-full object-cover photo-duotone">
+              <div class="project-media-overlay"></div>
               <span class="project-media-badge">Ver galería · 4 fotos</span>
+              <div class="project-media-caption">
+                <span class="project-tag">Proyecto multidisciplinario · Tapalpa, Jalisco</span>
+                <h3 class="project-title text-white">Cabaña MJ</h3>
+              </div>
             </button>
-            <div class="project-body">
-              <span class="project-tag">Proyecto multidisciplinario · Tapalpa, Jalisco</span>
-              <h3 class="project-title">Cabaña MJ</h3>
-              <p class="project-desc">Proyecto ejecutivo y construcción total desde cimentación hasta llave en mano, en Tapalpa, Jalisco. Incluye instalaciones sanitarias diseñadas con ecotecnologías, instalación eléctrica y proyecto estructural propio.</p>
-            </div>
+            <p class="sr-only">Proyecto ejecutivo y construcción total desde cimentación hasta llave en mano, en Tapalpa, Jalisco. Incluye instalaciones sanitarias diseñadas con ecotecnologías, instalación eléctrica y proyecto estructural propio.</p>
           </article>
 
         </div>
@@ -327,10 +359,17 @@
           <div>
             <h2 class="section-title text-white">Hablemos de su proyecto</h2>
             <p class="mt-5 text-navy-100 leading-relaxed max-w-md">
-              Solicite una cotización o contáctenos directamente por correo, teléfono o Instagram.
+              Solicite una cotización o contáctenos directamente por WhatsApp, correo, teléfono o Instagram.
             </p>
 
-            <ul class="mt-10 space-y-5">
+            <a href="https://wa.me/523334837364?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20cotizaci%C3%B3n%20para%20mi%20proyecto." target="_blank" rel="noopener noreferrer" class="btn-whatsapp mt-8">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-4.95A9 9 0 1 1 12 21a9 9 0 0 1-4.95-1.65L3 21z"/><path d="M8.5 9.5c0 3 2.5 5.5 5.5 5.5.5 0 1-.2 1.3-.6l.4-1a.7.7 0 0 0-.3-.8l-1.3-.7a.7.7 0 0 0-.8.1l-.4.4a4 4 0 0 1-2.1-2.1l.4-.4a.7.7 0 0 0 .1-.8l-.7-1.3a.7.7 0 0 0-.8-.3l-1 .4c-.4.3-.6.8-.6 1.3z"/></svg>
+              </span>
+              Escribir por WhatsApp
+            </a>
+
+            <ul class="mt-8 space-y-5">
               <li>
                 <a href="mailto:gbconstructora.gdl@gmail.com" class="contact-link">
                   <span class="contact-icon" aria-hidden="true">
@@ -385,7 +424,7 @@
   <footer class="bg-navy-900 border-t border-white/10 py-10">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
       <a href="#inicio" class="focus-ring rounded-sm inline-flex bg-white/95 rounded-lg px-3 py-1.5" aria-label="GB Constructora, inicio">
-        <img src="brand_assets/logos/GB_logo_2.png" alt="GB Constructora" class="h-10 w-auto">
+        <img src="brand_assets/logos/GB_logo_1.png" alt="GB Constructora" class="h-10 w-auto">
       </a>
       <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm" aria-label="Navegación de pie de página">
         <a href="#inicio" class="footer-link">Inicio</a>
