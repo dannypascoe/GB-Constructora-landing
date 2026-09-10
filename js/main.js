@@ -277,6 +277,102 @@
     if (e.key === 'ArrowRight') showPhoto(currentIndex + 1);
   });
 
+  /* ---------- Project cover photo carousel: one card at a time, never all at once ---------- */
+  var PROJECT_CYCLE_INTERVAL_MS = 3000;
+  var PROJECT_FADE_MS = 260;
+  var projectGrid = document.getElementById('project-grid');
+
+  if (projectGrid && !prefersReducedMotion) {
+    var projectCoverState = {};
+    var cycleKeys = [];
+
+    projectGrid.querySelectorAll('.project-card[data-project]').forEach(function (card) {
+      var key = card.getAttribute('data-project');
+      var gallery = galleries[key];
+      var img = card.querySelector('.project-media img');
+      if (!gallery || !img || gallery.photos.length < 2) return;
+      projectCoverState[key] = { img: img, index: 0 };
+      cycleKeys.push(key);
+    });
+
+    var cycleOrderIndex = 0;
+
+    function advanceProjectCover() {
+      if (!cycleKeys.length) return;
+      var key = cycleKeys[cycleOrderIndex % cycleKeys.length];
+      cycleOrderIndex++;
+      var state = projectCoverState[key];
+      var gallery = galleries[key];
+      var nextIndex = (state.index + 1) % gallery.photos.length;
+      var nextPhoto = gallery.photos[nextIndex];
+
+      var preload = new Image();
+      preload.onload = function () {
+        state.img.classList.add('is-cycling');
+        window.setTimeout(function () {
+          state.img.src = encodePath(nextPhoto.src);
+          state.img.alt = nextPhoto.alt;
+          state.img.classList.remove('is-cycling');
+          state.index = nextIndex;
+        }, PROJECT_FADE_MS);
+      };
+      preload.src = encodePath(nextPhoto.src);
+    }
+
+    var projectCycleTimer = null;
+
+    function startProjectCycle() {
+      if (projectCycleTimer || !cycleKeys.length) return;
+      projectCycleTimer = window.setInterval(advanceProjectCover, PROJECT_CYCLE_INTERVAL_MS);
+    }
+
+    function stopProjectCycle() {
+      window.clearInterval(projectCycleTimer);
+      projectCycleTimer = null;
+    }
+
+    var projectGridVisible = false;
+    var projectGridInteracted = false;
+
+    function syncProjectCycle() {
+      if (projectGridVisible && !projectGridInteracted) {
+        startProjectCycle();
+      } else {
+        stopProjectCycle();
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      var projectGridObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          projectGridVisible = entry.isIntersecting;
+        });
+        syncProjectCycle();
+      }, { threshold: 0.2 });
+      projectGridObserver.observe(projectGrid);
+    } else {
+      projectGridVisible = true;
+      syncProjectCycle();
+    }
+
+    projectGrid.addEventListener('mouseenter', function () {
+      projectGridInteracted = true;
+      syncProjectCycle();
+    });
+    projectGrid.addEventListener('mouseleave', function () {
+      projectGridInteracted = false;
+      syncProjectCycle();
+    });
+    projectGrid.addEventListener('focusin', function () {
+      projectGridInteracted = true;
+      syncProjectCycle();
+    });
+    projectGrid.addEventListener('focusout', function () {
+      projectGridInteracted = false;
+      syncProjectCycle();
+    });
+  }
+
   /* ---------- Contact form: compose a mailto with the entered details ---------- */
   var contactForm = document.getElementById('contact-form');
   contactForm.addEventListener('submit', function (e) {
