@@ -1,6 +1,26 @@
 (function () {
   'use strict';
 
+  /* ---------- Hero reveal: navbar/text/overlay fade in once the hero video ends ---------- */
+  var heroVideo = document.getElementById('hero-video');
+  var heroText = document.getElementById('hero-text');
+  var heroOverlay = document.getElementById('hero-overlay');
+
+  function revealHero() {
+    header.classList.add('is-visible');
+    heroText.classList.add('is-visible');
+    heroOverlay.classList.add('is-visible');
+  }
+
+  if (heroVideo) {
+    heroVideo.addEventListener('ended', revealHero, { once: true });
+    // If the video can't play (blocked autoplay, failed to load), don't leave the
+    // navbar/text permanently hidden — reveal immediately instead.
+    heroVideo.addEventListener('error', revealHero, { once: true });
+  } else {
+    revealHero();
+  }
+
   /* ---------- Sticky header shadow on scroll ---------- */
   var header = document.getElementById('site-header');
   function updateHeaderShadow() {

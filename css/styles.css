@@ -252,16 +252,36 @@ section#inicio .hero-duotone {
     linear-gradient(120deg, rgba(33,58,122,0.55), rgba(10,20,47,0.35));
 }
 
+/* Navbar, hero text and overlay stay hidden while the hero video plays,
+   then reveal once (triggered by the video's `ended` event — see main.js). */
+#site-header,
+#hero-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease-out;
+}
+
+#site-header.is-visible,
+#hero-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 [data-hero] {
   opacity: 0;
   transform: translateY(16px);
-  animation: hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
 }
 
-[data-hero]:nth-of-type(1) { animation-delay: 60ms; }
-[data-hero]:nth-of-type(2) { animation-delay: 180ms; }
-[data-hero]:nth-of-type(3) { animation-delay: 300ms; }
-[data-hero]:nth-of-type(4) { animation-delay: 420ms; }
+#hero-text.is-visible [data-hero] {
+  animation: hero-in 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: auto;
+}
+
+#hero-text.is-visible [data-hero]:nth-of-type(1) { animation-delay: 60ms; }
+#hero-text.is-visible [data-hero]:nth-of-type(2) { animation-delay: 180ms; }
+#hero-text.is-visible [data-hero]:nth-of-type(3) { animation-delay: 300ms; }
+#hero-text.is-visible [data-hero]:nth-of-type(4) { animation-delay: 420ms; }
 
 @keyframes hero-in {
   to {
@@ -271,10 +291,18 @@ section#inicio .hero-duotone {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #site-header,
+  #hero-overlay {
+    transition: none;
+  }
+
   [data-hero] {
-    opacity: 1;
     transform: none;
+  }
+
+  #hero-text.is-visible [data-hero] {
     animation: none;
+    opacity: 1;
   }
 }
 
