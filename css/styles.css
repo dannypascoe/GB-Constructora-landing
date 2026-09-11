@@ -366,14 +366,14 @@ textarea:focus-visible {
   display: none;
 }
 
-@media (max-width: 640px) {
-  #hero-video {
-    display: none;
-  }
+/* Applied via JS when the video can't play (reduced motion, load/play error):
+   show the static poster image instead of a frozen/black video element. */
+.hero-video-failed #hero-video {
+  display: none;
+}
 
-  .hero-media-fallback {
-    display: block;
-  }
+.hero-video-failed .hero-media-fallback {
+  display: block;
 }
 
 .hero-gradient {

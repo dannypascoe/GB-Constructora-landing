@@ -117,6 +117,46 @@
   var countEls = document.querySelectorAll('[data-count-target]');
   var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Hero video: robust autoplay on every load, including mobile ---------- */
+  var heroVideo = document.getElementById('hero-video');
+  var heroSection = document.getElementById('inicio');
+
+  if (heroVideo && heroSection) {
+    if (prefersReducedMotion) {
+      heroSection.classList.add('hero-video-failed');
+    } else {
+      var showHeroFallback = function () {
+        heroSection.classList.add('hero-video-failed');
+      };
+
+      var tryPlayHeroVideo = function () {
+        var playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function () {
+            // Autoplay blocked (e.g. data-saver mode): retry once the video
+            // reports it's actually ready, otherwise show the static poster.
+            heroVideo.addEventListener('canplay', function retry() {
+              heroVideo.removeEventListener('canplay', retry);
+              heroVideo.play().catch(showHeroFallback);
+            });
+          });
+        }
+      };
+
+      heroVideo.addEventListener('error', showHeroFallback);
+      tryPlayHeroVideo();
+
+      // Some mobile browsers restore the page from the back/forward cache
+      // with the video paused on its last frame instead of replaying it.
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          heroVideo.currentTime = 0;
+          tryPlayHeroVideo();
+        }
+      });
+    }
+  }
+
   function setFinalValue(el) {
     var target = parseInt(el.getAttribute('data-count-target'), 10);
     var prefix = el.getAttribute('data-count-prefix') || '';
